@@ -7,6 +7,8 @@ import socket
 import sys
 import pickle
 
+import subprocess
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_addr = ('localhost', '4444')
 print("SERVER STARTING ON %s PORT %s'" % server_addr)
@@ -42,7 +44,34 @@ while True:
         msg = pickle.dumps(server_addr)
         sock.send(msg)
 
+        print("PRINTING SERVER INFO...")
+
 # --- JULY 13TH ---------------------------------------------
 
+    if cmd == "LIST":
+        conf_file = open("/home/server/logging.conf")
+        list_srcs = ""
 
+        for line in conf_file:
+            list_srcs = list_srcs + " " + line
 
+        msg = pickle.dumps(list_srcs)
+        sock.send(msg)
+
+        print("LISTING SOURCES...")
+
+# --- JULY 14TH ---------------------------------------------
+
+    cmd_spl = cmd.split()
+    if cmd_spl[0] == 'TRANSFER':
+        sock.send(pickle.dumps("Username: "))
+
+        username_raw = connection.recv(4096)
+        username = pickle.loads(username_raw)
+        sys_call = username + "@" + client_addr = '.'
+
+        subprocess.run(['scp', cmd_spl[1], sys_call])
+
+    else:
+        sock.close()
+        print("QUERY COMPLETED OR UNKNOWN ......")
