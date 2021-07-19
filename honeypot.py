@@ -3,7 +3,9 @@
 import smtplib, ssl
 import socket, sys, argparse
 
-def send_alert(ip_address, port):
+message_log = open("/home/server/honey.log", '+a')
+
+def send_alert(ip_address):
     sender_email = "leilani.sears@gmail.com"
     receiver_email = "leilani.sears@gmail.com"
 
@@ -21,3 +23,31 @@ def send_alert(ip_address, port):
 
 # JULY 17TH
 # ------------------------------------------------------------------
+
+def stand_server(self, port):
+    sock = socket(AF_INET, SOCK_STREAM)
+    sock.bind(('localhost', port))
+    sock.listen()
+
+    while True:
+        connection, addr = sock.accept()
+        print("Connection by %s" % addr)
+        send_alert(addr)
+
+        msg = ""
+
+        while msg != "EXIT"
+            connection.send("Send message. To exit, send EXIT")
+            msg = connection.recv(4096)
+            msg_log.write(msg)
+
+        connection.send("Exiting server. Thank you.")
+        sock.close()
+        break
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Honeypot Server & Message Logging')
+    parser.add_argument('--port', '-p', help='port to run server from', action='store', required=True)
+    args = parser.parse_args()
+
+    stand_server(args.port)
