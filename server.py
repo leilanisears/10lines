@@ -6,7 +6,6 @@
 import socket
 import sys
 import pickle
-
 import subprocess
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
